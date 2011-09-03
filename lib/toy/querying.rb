@@ -5,7 +5,9 @@ module Toy
     module ClassMethods
       def get(id)
         log_operation(:get, self, store, id)
-        load(id, store.read(id))
+        key = id_to_key(id)
+        value = store.read(key)
+        load(id,value)
       end
 
       def get!(id)
@@ -31,8 +33,14 @@ module Toy
       alias :has_key? :key?
 
       def load(id, attrs)
-        attrs && allocate.initialize_from_database(attrs.update('id' => id))
+        if key_factory.respond_to? :model_for_key
+          instance = key_factory.model_for_key(id).allocate
+        else
+          instance = allocate
+        end
+        attrs && instance.initialize_from_database(attrs.update('id' => id))
       end
+      
     end
   end
 end

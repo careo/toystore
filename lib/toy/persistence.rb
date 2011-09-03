@@ -87,8 +87,8 @@ module Toy
 
         def persist!
           attrs = persisted_attributes
-          attrs.delete('id') # no need to persist id as that is key
-          store.write(id, attrs)
+          key = attrs.delete('id') # no need to persist key, but we do need it in the right format
+          store.write(key, attrs)
           log_operation(:set, self.class.name, store, id, attrs)
           persist
           each_embedded_object { |doc| doc.send(:persist) }

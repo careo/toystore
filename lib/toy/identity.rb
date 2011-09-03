@@ -35,6 +35,18 @@ module Toy
           raise InvalidKey.new if key.nil?
         end
       end
+      
+      def id_to_key(id)
+        attribute = attributes["id"]
+        attribute.type.to_store(id, attribute)
+      end
+      
+      def key_to_id(key)
+        attribute = attributes["id"]
+        attribute.type.from_store(id, attribute)
+      end
+      
+      
     end
   end
 end

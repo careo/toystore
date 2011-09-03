@@ -96,7 +96,7 @@ module Toy
 
       private
         def assert_type(record)
-          unless record.instance_of?(proxy_class)
+          unless record.kind_of?(proxy_class)
             raise(ArgumentError, "#{proxy_class} expected, but was #{record.class}")
           end
         end
