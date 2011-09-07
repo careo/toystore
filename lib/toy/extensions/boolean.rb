@@ -28,7 +28,7 @@ module Toy
           value
         else
           Mapping[value]
-        end
+        end.to_s
       end
 
       def from_store(value, *)
