@@ -69,7 +69,8 @@ module Toy
       def delete
         @_destroyed = true
         log_operation(:del, self.class.name, store, id)
-        store.delete(id)
+        key = self.class.id_to_key(id)
+        store.delete(key)
       end
 
       private
